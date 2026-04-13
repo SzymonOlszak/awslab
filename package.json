@@ -5,8 +5,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": ">=3.11.0",
+    "@aws-sdk/client-ec2": "^3.1030.0",
+    "async": "^0.2.10",
     "aws-sdk": "~2.0.0-rc9",
-    "async": "^0.2.10"
+    "express": ">=3.11.0"
   }
 }
