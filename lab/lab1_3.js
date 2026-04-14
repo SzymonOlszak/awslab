@@ -8,6 +8,7 @@ let task = function(request, callback){
     let params = {
           ImageId: "ami-080254318c2d8932f",
           InstanceType: "t3.micro",
+
           MaxCount: 1,
           MinCount: 1,
     };
@@ -15,7 +16,28 @@ let task = function(request, callback){
           if (err) {
               callback(err);
           } else {
-              callback(null, data);
+              let instanceId = data.Instances[0].InstanceId;
+
+              setTimeout(function(){
+
+                  ec2.describeInstances({
+                      InstanceIds: [instanceId]
+                  }, function(err2, data2){
+
+                      if(err2){
+                          callback(err2);
+                          return;
+                      }
+
+                      let instance = data2.Reservations[0].Instances[0];
+
+                      callback(null,{
+                          InstanceId: instance.InstanceId,
+                          PublicIP: instance.PublicIpAddress,
+                          DNS: instance.PublicDnsName
+                      });
+                  });
+              },10000);
           }
      })
 
