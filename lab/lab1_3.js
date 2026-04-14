@@ -16,20 +16,23 @@ let task = function(request, callback){
          if (err) console.log(err, err.stack); // an error occurred
          else console.log(data);           // successful response
      })
-    setTimeout(function(){
-        ec2.describeInstances({
-            InstanceIds: [instanceId]
-        }, function(err2, data2){
 
-            let instance = data2.Reservations[0].Instances[0];
-
-            callback(null, {
-                id: instance.InstanceId,
-                ip: instance.PublicIpAddress,
-                dns: instance.PublicDnsName
-            });
-        });
-    }, 5000);
+    // let instanceId = data.Instances[0].InstanceId;
+    //
+    // setTimeout(function(){
+    //     ec2.describeInstances({
+    //         InstanceIds: [instanceId]
+    //     }, function(err2, data2){
+    //
+    //         let instance = data2.Reservations[0].Instances[0];
+    //
+    //         callback(null, {
+    //             id: instance.InstanceId,
+    //             ip: instance.PublicIpAddress,
+    //             dns: instance.PublicDnsName
+    //         });
+    //     });
+    // }, 5000);
 }
 
 exports.lab = task
