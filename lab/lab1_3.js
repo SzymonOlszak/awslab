@@ -22,9 +22,9 @@ let task = function(request, callback){
 
                   ec2.describeInstances({
                       InstanceIds: [instanceId]
-                  }, function(err2, data2){
+                  }, function (err2, data2) {
 
-                      if(err2){
+                      if (err2) {
                           callback(err2);
                           return;
                       }
