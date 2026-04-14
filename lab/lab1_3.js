@@ -1,0 +1,35 @@
+var AWS = require('aws-sdk');
+
+AWS.config.loadFromPath('./config.json');
+
+let task = function(request, callback){
+
+    let ec2 = new AWS.EC2();
+    let params = {
+          ImageId: "ami-080254318c2d8932f",
+          InstanceType: "t3.micro",
+          KeyName: "KEYEXAMPLE",
+          MaxCount: 1,
+          MinCount: 1,
+    };
+     ec2.runInstances(params, function(err, data) {
+         if (err) console.log(err, err.stack); // an error occurred
+         else console.log(data);           // successful response
+     })
+    setTimeout(function(){
+        ec2.describeInstances({
+            InstanceIds: [instanceId]
+        }, function(err2, data2){
+
+            let instance = data2.Reservations[0].Instances[0];
+
+            callback(null, {
+                id: instance.InstanceId,
+                ip: instance.PublicIpAddress,
+                dns: instance.PublicDnsName
+            });
+        });
+    }, 5000);
+}
+
+exports.lab = task
