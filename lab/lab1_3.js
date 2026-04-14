@@ -13,8 +13,11 @@ let task = function(request, callback){
           MinCount: 1,
     };
      ec2.runInstances(params, function(err, data) {
-         if (err) console.log(err, err.stack); // an error occurred
-         else console.log(data);           // successful response
+          if (err) {
+              callback(err);
+          } else {
+              callback(null, data);
+          }
      })
 
     // let instanceId = data.Instances[0].InstanceId;
