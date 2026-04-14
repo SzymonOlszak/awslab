@@ -8,7 +8,6 @@ let task = function(request, callback){
     let params = {
           ImageId: "ami-080254318c2d8932f",
           InstanceType: "t3.micro",
-          KeyName: "KEYEXAMPLE",
           MaxCount: 1,
           MinCount: 1,
     };
