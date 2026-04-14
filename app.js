@@ -11,6 +11,9 @@ var urlMap = [
 	{path: "/example_1", action: example_1},
 	{path: "/lab1_2", action: lab1_2},
 	{path: "/lab1_3", action: lab1_3},
+	{path: "/health", action: function(req, cb) {
+		cb(null, "ok");
+	}}
 	];
 
 var service = require("./lib/service").http(urlMap);
